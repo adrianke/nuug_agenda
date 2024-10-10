@@ -1,0 +1,22 @@
+<h2>
+  <%= if is_nil(@talk_request_id) do %>
+    Nytt innlegg
+  <%= else %>
+    Ny replikk/faktaopplysning
+  <% end %>
+</h2>
+
+<form method="post" action="<%= NuugAgendaWeb.Router.Helpers.agenda_path(@conn, :create) %>">
+  <%#
+  <label>Hvordan kontakte deg? (Telefonnummer eller Jami-adresse) <input type="text" name="comment"></label>
+  #%>
+
+  <%= if not is_nil(@talk_request_id) do %>
+    <input type="hidden" name="talk_request_id" value="<%= @talk_request_id %>">
+    <label><input type="radio" name="type" value="reply"> Replikk</label>
+    <label><input type="radio" name="type" value="fact"> Faktaopplysning</label>
+  <% end %>
+
+  <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>">
+  <input type="submit" value="Be om ordet">
+</form>

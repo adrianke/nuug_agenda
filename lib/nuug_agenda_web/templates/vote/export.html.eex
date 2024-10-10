@@ -1,0 +1,9 @@
+<h1>Eksport av alle voteringer</h1>
+<%= for item <- @list do %>
+  <hr>
+  <h2><%= item.proposal.title %></h2>
+  <p><%= item.proposal.description %></p>
+  <section id="votes">
+    <%= render NuugAgendaWeb.VoteView, "votes.html", conn: @conn, votes: item.votes %>
+  </section>
+<% end %>

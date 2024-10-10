@@ -1,0 +1,25 @@
+<%= for group <- @talk_requests do %>
+  <%= for talk_request <- group do %>
+    <%= if talk_request.type == "main" do %>
+      <h3>(<%= talk_request.id %>) <strong>Innlegg:</strong>
+    <%= else %>
+    <li>(<%= talk_request.id %>) <strong><%= if talk_request.type == "reply" do %>Replikk:<%= else %>Faktaopplysning:<% end %></strong>
+    <% end %>
+
+
+    <%= talk_request.user.name %>
+    <%= if talk_request.status == "new" do %>(ny)<% end %>
+    <%= if talk_request.status == "ongoing" do %>(snakker)<% end %>
+    <%= if talk_request.status == "archived" do %>(avsluttet)<% end %>
+
+    <%= if talk_request.type == "main" do %>
+      <a href="<%= NuugAgendaWeb.Router.Helpers.agenda_path(@conn, :respond, talk_request.id) %>">Respondér</a>
+      </h3>
+      <ul>
+    <%= else %>
+      </li>
+    <% end %>
+  <% end %>
+    </ul>
+    <hr>
+<% end %>

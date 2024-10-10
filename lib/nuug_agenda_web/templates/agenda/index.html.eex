@@ -1,0 +1,9 @@
+<h2>Taleliste <a href="<%= NuugAgendaWeb.Router.Helpers.agenda_path(@conn, :new) %>">Nytt innlegg</a></h2>
+
+<script type="text/javascript">
+  window.agenda = true;
+</script>
+
+<section id="talk_requests">
+  <%= render NuugAgendaWeb.AgendaView, "talk_requests.html", conn: @conn, talk_requests: @talk_requests %>
+</section>

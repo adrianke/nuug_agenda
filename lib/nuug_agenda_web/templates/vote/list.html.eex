@@ -1,0 +1,11 @@
+<h2>Voteringer <a href="<%= NuugAgendaWeb.Router.Helpers.vote_path(@conn, :export) %>">Eksport</a></h2>
+<ul>
+  <%= for proposal <- @proposals do %>
+    <li>
+      <a href="<%= NuugAgendaWeb.Router.Helpers.vote_path(@conn, :show, proposal.id) %>">
+        <%= proposal.title %>
+      </a>
+      (<%= if proposal.active do %>åpen<%= else %>lukket<% end %>)
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>NUUG Årsmøte</title>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <%= if not is_nil(Map.get(assigns, :socket_token)) do %>
+      <script type="javascript">
+        var use_sockets = true;
+        var socket_token = <%= @socket_token |> Jason.encode!() |> raw() %>;
+      </script>
+    <% end %>
+  </head>
+  <body>
+    <%= if Map.get(@conn.assigns, :user_signed_in?, false) do %>
+      <header>
+        <section class="container">
+          <div>
+            <p style="margin: 0;">
+              Hei, <%= @conn.assigns.current_user.name %>.
+              <a href="<%= NuugAgendaWeb.Router.Helpers.log_in_path(@conn, :logout) %>">Logg ut</a>
+            </p>
+          </div>
+          <nav role="navigation">
+            <ul>
+              <li><a href="https://meet.redpill-linpro.com/BiologicalSpheresStarveCompletely" target="_blank">Gå til møtet</a></li>
+              <li><a href="https://wiki.nuug.no/aktiviteter/2022aarsmoete" target="_blank">Saksliste</a></li>
+              <li><a href="<%= NuugAgendaWeb.Router.Helpers.agenda_path(@conn, :index) %>">Taleliste</a></li>
+              <li><a href="<%= NuugAgendaWeb.Router.Helpers.vote_path(@conn, :index) %>">Votering</a></li>
+            </ul>
+          </nav>
+        </section>
+      </header>
+    <% else %>
+      <header>
+        <section class="container">
+          <div></div>
+          <nav role="navigation">
+            <ul>
+              <li><a href="https://meet.redpill-linpro.com/BiologicalSpheresStarveCompletely" target="_blank">Observatør? Gå til møte</a></li>
+            </ul>
+          </nav>
+        </section>
+      </header>
+    <% end %>
+    <main role="main" class="container">
+      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <%= render @view_module, @view_template, assigns %>
+    </main>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+  </body>
+</html>

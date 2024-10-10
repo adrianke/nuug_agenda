@@ -1,0 +1,12 @@
+<%= for {title, users} <- @votes do %>
+  <%= if not is_nil(List.first(users)) do %>
+    <h3>(<%= length(users) %>) <%= title %></h3>
+    <ul>
+      <%= for user_name <- users do %>
+        <li><%= user_name %></li>
+      <% end %>
+    </ul>
+  <%= else %>
+    <h3>(0) <%= title %></h3>
+  <% end %>
+<% end %>

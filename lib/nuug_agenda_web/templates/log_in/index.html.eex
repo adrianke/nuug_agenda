@@ -1,0 +1,6 @@
+<h2>Logg inn</h2>
+<form action="" method="post">
+  <label>Nøkkel: <input type="password" name="key"></label>
+  <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>">
+  <input type="submit" value="Logg inn">
+</form>

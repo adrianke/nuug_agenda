@@ -1,0 +1,24 @@
+<h2><%= @proposal.title %></h2>
+<p><%= @proposal.description %></p>
+
+<%= if @proposal.active do %>
+  <hr>
+
+  <form action="cast" method="post">
+    <%= for alternative <- @proposal_alternatives do %>
+      <label><input type="radio" name="alternative" value="<%= alternative.id %>"> <%= alternative.title %></label>
+    <% end %>
+    <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>">
+    <input type="submit" value="Avgi stemme">
+  </form>
+<% end %>
+
+<hr>
+<script type="text/javascript">
+  window.voting = true;
+  window.proposal_id = <%= @proposal.id %>;
+</script>
+
+<section id="votes">
+  <%= render NuugAgendaWeb.VoteView, "votes.html", conn: @conn, votes: @votes %>
+</section>
